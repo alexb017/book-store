@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import * as motion from 'motion/react-client';
+import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import type { Links, PathProps } from '@/lib/types';
 
