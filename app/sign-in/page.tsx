@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { signIn } from '@/auth';
 
 export const metadata: Metadata = {
   title: 'Sign In | Book Store',
@@ -38,7 +39,15 @@ export default function SignInPage() {
             <CardDescription>Sign in to your account.</CardDescription>
           </CardHeader>
           <CardFooter>
-            <form className="w-full">
+            <form
+              className="w-full"
+              action={async () => {
+                'use server';
+                await signIn('github', {
+                  redirectTo: '/',
+                });
+              }}
+            >
               <Button className="w-full h-11 relative rounded-full [&_svg]:size-5 shadow-xl">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
