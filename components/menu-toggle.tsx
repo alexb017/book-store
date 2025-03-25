@@ -78,7 +78,7 @@ function MToggle({ toggle }: { toggle: () => void }) {
     <Button
       variant="outline"
       size="icon"
-      className="p-0 w-4 h-4 border-none hover:bg-transparent shadow-none"
+      className="p-0 w-4 h-4 bg-transparent border-none hover:bg-transparent shadow-none"
       onClick={toggle}
       aria-label="Toggle Menu"
     >

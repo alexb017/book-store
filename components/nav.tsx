@@ -4,7 +4,7 @@ import MenuToggle from './menu-toggle';
 
 export default function Nav() {
   return (
-    <div className="absolute top-0 left-0 z-50 w-full h-16">
+    <div className="fixed top-0 left-0 z-50 w-full h-16 bg-white/60 backdrop-blur-xl">
       <div className="flex items-center justify-between w-full h-16 px-5">
         <div className="flex items-center gap-5 w-[40%]">
           {/* Menu toggle animation */}

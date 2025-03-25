@@ -22,7 +22,7 @@ export default function About() {
         curated collection spanning genres from timeless classics to the latest
         bestsellers.
       </motion.h1>
-      <div className="flex flex-col items-start gap-5 max-w-lg">
+      <div className="flex flex-col items-start gap-4 max-w-lg">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,7 +31,7 @@ export default function About() {
             stiffness: 260,
             damping: 20,
             duration: 0.5,
-            delay: 0.2,
+            delay: 0.1,
           }}
         >
           Whether you`re a seasoned bibliophile or a casual reader, we`ve got
@@ -45,7 +45,7 @@ export default function About() {
             stiffness: 260,
             damping: 20,
             duration: 0.5,
-            delay: 0.4,
+            delay: 0.2,
           }}
         >
           At the Book Store, we believe that every story has the power to
@@ -60,32 +60,32 @@ export default function About() {
             stiffness: 260,
             damping: 20,
             duration: 0.5,
-            delay: 0.6,
+            delay: 0.3,
           }}
         >
           <Button asChild className="rounded-full shadow-lg">
             <Link href="/shop">Browse Books</Link>
           </Button>
         </motion.div>
-        <motion.p
-          className="text-sm text-neutral-500"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: 'spring',
-            stiffness: 260,
-            damping: 20,
-            duration: 0.5,
-            delay: 0.8,
-          }}
-        >
-          For more information, please{' '}
-          <Link href="/contact" className="text-black underline">
-            contact
-          </Link>{' '}
-          us.
-        </motion.p>
       </div>
+      <motion.p
+        className="text-sm text-neutral-500"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: 'spring',
+          stiffness: 260,
+          damping: 20,
+          duration: 0.5,
+          delay: 0.4,
+        }}
+      >
+        For more information, please{' '}
+        <Link href="/contact" className="text-black underline">
+          contact
+        </Link>{' '}
+        us.
+      </motion.p>
     </div>
   );
 }
