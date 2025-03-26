@@ -1,42 +1,10 @@
 import Image from 'next/image';
 import { type Book } from '@/lib/types';
 import Link from 'next/link';
-
-const apiKey = process.env.NYT_BOOKS_API_KEY;
-
-async function getBooksFromNYTApi() {
-  try {
-    const lists = [
-      'hardcover-fiction',
-      'hardcover-nonfiction',
-      'young-adult',
-      'science',
-    ];
-    const allBooks = [] as Book[];
-
-    for (const list of lists) {
-      const res = await fetch(
-        `https://api.nytimes.com/svc/books/v3/lists/current/${list}.json?api-key=${apiKey}`
-      );
-
-      if (!res.ok) {
-        throw new Error('Failed to fetch data from NYT API');
-      }
-
-      const data = await res.json();
-      allBooks.push(...data.results.books);
-    }
-
-    return allBooks;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+import { getBooksFromNYTApi } from '@/lib/get-books';
 
 export default async function ShopPage() {
-  const books = await getBooksFromNYTApi();
-  // console.log(books);
+  const books = await getBooksFromNYTApi({});
 
   return (
     <div>
