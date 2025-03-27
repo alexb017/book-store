@@ -6,7 +6,19 @@ export type Book = {
   author: string;
   book_image: string;
   publisher: string;
-  primary_isbn13: string;
+  primary_isbn13: number;
+};
+
+export type BookCover = {
+  book: Book;
+  isSelected?: boolean;
+  delay?: number;
+  onClick: () => void;
+};
+
+export type BookDetails = {
+  book: Book;
+  onClose: () => void;
 };
 
 export type Links = {

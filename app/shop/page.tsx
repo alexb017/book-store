@@ -12,7 +12,7 @@ export default async function ShopPage() {
       <div className="grid grid-cols-8 3xl:grid-cols-12 gap-10 my-8">
         {books.map((book: Book) => (
           <Link
-            href={book.primary_isbn13}
+            href={`${book.primary_isbn13}`}
             key={book.primary_isbn13}
             className="flex items-center justify-center hover:scale-105 transition-transform"
           >

@@ -6,9 +6,9 @@ import { motion } from 'motion/react';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-start gap-5 max-w-3xl">
+    <div className="flex flex-col items-center gap-5 max-w-2xl">
       <motion.p
-        className="text-xs tracking-widest uppercase text-neutral-500"
+        className="tracking-widest text-neutral-500"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -18,10 +18,10 @@ export default function Home() {
           duration: 0.5,
         }}
       >
-        e-commerce
+        Welcome to Book Store!
       </motion.p>
       <motion.h1
-        className="text-4xl font-semibold tracking-tighter"
+        className="text-6xl text-center font-semibold tracking-tighter"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -32,9 +32,9 @@ export default function Home() {
           delay: 0.1,
         }}
       >
-        Welcome to Book Store!
+        Book Store brings the world of literature to your fingertips.
       </motion.h1>
-      <motion.p
+      {/* <motion.p
         className="text-lg tracking-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -50,7 +50,7 @@ export default function Home() {
         diverse collection of contemporary and classic books, delivered straight
         to your home. Explore new authors, revisit old favorites, and embark on
         literary journeys from the comfort of your space.
-      </motion.p>
+      </motion.p> */}
       <motion.div
         className="flex items-center gap-5"
         initial={{ opacity: 0, y: 20 }}
