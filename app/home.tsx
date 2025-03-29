@@ -21,7 +21,7 @@ export default function Home() {
         Welcome to Book Store!
       </motion.p>
       <motion.h1
-        className="text-6xl text-center font-semibold tracking-tighter"
+        className="text-5xl 3xl:text-6xl text-center font-semibold tracking-tighter"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{

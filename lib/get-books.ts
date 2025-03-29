@@ -3,12 +3,7 @@ import { type Book } from '@/lib/types';
 const apiKey = process.env.NYT_BOOKS_API_KEY;
 
 export async function getBooksFromNYTApi({
-  lists = [
-    'hardcover-fiction',
-    'hardcover-nonfiction',
-    'young-adult',
-    'science',
-  ],
+  lists = ['hardcover-fiction', 'hardcover-nonfiction'],
   revalidate = 60 * 60 * 24,
   limit = 0,
 }: {

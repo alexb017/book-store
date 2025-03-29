@@ -11,13 +11,14 @@ export type Book = {
 
 export type BookCover = {
   book: Book;
-  isSelected?: boolean;
+  page?: string;
   delay?: number;
   onClick: () => void;
 };
 
 export type BookDetails = {
   book: Book;
+  page?: string;
   onClose: () => void;
 };
 

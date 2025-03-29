@@ -4,7 +4,7 @@ import { type BookDetails } from '@/lib/types';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 
-export default function BookDetails({ book, onClose }: BookDetails) {
+export default function BookDetails({ book, page, onClose }: BookDetails) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -14,17 +14,17 @@ export default function BookDetails({ book, onClose }: BookDetails) {
       onClick={onClose}
     >
       <motion.div
-        layoutId={`book-content-${book.primary_isbn13}`}
+        layoutId={`${page}-book-content-${book.primary_isbn13}`}
         className="max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center gap-5">
           <motion.div
-            layoutId={`book-cover-${book.primary_isbn13}`}
+            layoutId={`${page}-book-cover-${book.primary_isbn13}`}
             className="flex items-center justify-center"
           >
             <motion.img
-              layoutId={`book-cover-image-${book.primary_isbn13}`}
+              layoutId={`${page}-book-cover-image-${book.primary_isbn13}`}
               src={book.book_image}
               alt={book.title}
               className="rounded-xl w-[210px] 3xl:w-[310px] h-[338px] 3xl:h-[500px]"
