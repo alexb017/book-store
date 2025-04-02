@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "db:generate": "drizzle-kit generate:pg --schema ./lib/db/schema.ts --out=./lib/db/migrations",
+    "db:migrate": "npx tsx ./lib/db/migrate.ts",
+    "db:seed": "npx tsx ./lib/db/seed.ts",
     "start": "next start",
     "lint": "next lint"
   },
