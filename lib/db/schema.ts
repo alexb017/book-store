@@ -1,4 +1,11 @@
-import { serial, text, timestamp, integer, pgTable } from 'drizzle-orm/pg-core';
+import {
+  serial,
+  text,
+  timestamp,
+  integer,
+  pgTable,
+  varchar,
+} from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Schema for the users table
@@ -16,10 +23,11 @@ export const cartItems = pgTable('cart_items', {
   userId: integer('user_id')
     .notNull()
     .references(() => users.id),
-  bookIsbn: integer('book_isbn').notNull(),
+  bookIsbn: varchar('book_isbn').notNull(),
   title: text('title').notNull(),
   author: text('author').notNull(),
   imageUrl: text('image_url').notNull(),
+  price: integer('price').notNull(),
   quantity: integer('quantity').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
