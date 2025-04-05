@@ -1,14 +1,12 @@
 import Nav from '@/components/nav';
 import Home from './home';
-import { getBooksFromNYTApi } from '@/lib/get-books';
 import BooksList from '@/components/books-list';
 import HomeFooter from '@/components/home-footer';
+import { getLimitedBooks } from '@/lib/db';
 
 export default async function HomePage() {
-  const books = await getBooksFromNYTApi({
-    lists: ['hardcover-fiction'],
-    limit: 6,
-  });
+  const books = await getLimitedBooks(6);
+  // console.log(books);
 
   return (
     <main>

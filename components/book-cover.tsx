@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { type BookCover } from '@/lib/types';
+import type { BookCover } from '@/lib/types';
 
 export default function BookCover({ book, page, onClick }: BookCover) {
   // Variants for the animation
@@ -30,16 +30,16 @@ export default function BookCover({ book, page, onClick }: BookCover) {
   return (
     <motion.div variants={variants}>
       <motion.div
-        layoutId={`${page}-book-content-${book.primary_isbn13}`}
+        layoutId={`${page}-book-content-${book.isbn}`}
         onClick={onClick}
       >
         <motion.div
-          layoutId={`${page}-book-cover-${book.primary_isbn13}`}
+          layoutId={`${page}-book-cover-${book.isbn}`}
           className="flex items-center justify-center"
         >
           <motion.img
-            layoutId={`${page}-book-cover-image-${book.primary_isbn13}`}
-            src={book.book_image}
+            layoutId={`${page}-book-cover-image-${book.isbn}`}
+            src={book.imageUrl}
             alt={book.title}
             width={310}
             height={500}

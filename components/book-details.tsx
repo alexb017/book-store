@@ -1,6 +1,6 @@
 'use client';
 
-import { type BookDetails } from '@/lib/types';
+import type { BookDetails } from '@/lib/types';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 
@@ -14,24 +14,24 @@ export default function BookDetails({ book, page, onClose }: BookDetails) {
       onClick={onClose}
     >
       <motion.div
-        layoutId={`${page}-book-content-${book.primary_isbn13}`}
+        layoutId={`${page}-book-content-${book.isbn}`}
         className="max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center gap-5">
           <motion.div
-            layoutId={`${page}-book-cover-${book.primary_isbn13}`}
+            layoutId={`${page}-book-cover-${book.isbn}`}
             className="flex items-center justify-center"
           >
             <motion.img
-              layoutId={`${page}-book-cover-image-${book.primary_isbn13}`}
-              src={book.book_image}
+              layoutId={`${page}-book-cover-image-${book.isbn}`}
+              src={book.imageUrl}
               alt={book.title}
               className="rounded-xl w-[210px] 3xl:w-[310px] h-[338px] 3xl:h-[500px]"
             />
           </motion.div>
           <div className="flex flex-col gap-2 items-center">
-            <h1 className="text-3xl font-semibold tracking-tight">
+            <h1 className="text-3xl font-semibold tracking-tight text-center">
               {book.title}
             </h1>
             <div className="flex flex-col items-center">
@@ -40,7 +40,7 @@ export default function BookDetails({ book, page, onClose }: BookDetails) {
             </div>
             <form>
               <Button type="submit" className="rounded-full shadow-lg">
-                Buy Now
+                ${book.price} Buy Now
               </Button>
             </form>
           </div>

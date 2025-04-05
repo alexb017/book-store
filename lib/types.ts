@@ -1,13 +1,9 @@
 import { Variants } from 'motion/react';
+import { users, books, cartItems } from './db/schema';
 
-export type Book = {
-  title: string;
-  description: string;
-  author: string;
-  book_image: string;
-  publisher: string;
-  primary_isbn13: number;
-};
+export type User = typeof users.$inferSelect;
+export type Book = typeof books.$inferSelect;
+export type CartItem = typeof cartItems.$inferSelect;
 
 export type BookCover = {
   book: Book;

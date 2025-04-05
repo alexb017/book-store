@@ -1,8 +1,8 @@
-import { getBooksFromNYTApi } from '@/lib/get-books';
+import { getAllBooks } from '@/lib/db';
 import BooksList from '@/components/books-list';
 
 export default async function ShopPage() {
-  const books = await getBooksFromNYTApi({});
+  const books = await getAllBooks();
 
   return (
     <div>
