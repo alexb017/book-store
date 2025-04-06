@@ -4,6 +4,7 @@ import * as schema from './schema';
 import dotenv from 'dotenv';
 import { eq } from 'drizzle-orm';
 import { users } from './schema';
+import { unstable_cache } from 'next/cache';
 
 // Load environment variables from .env.local file
 dotenv.config({ path: '.env.local' });
@@ -19,30 +20,38 @@ export const db = drizzle(sql, {
 });
 
 // get all books
-export const getAllBooks = async () => {
-  const books = await db.query.books.findMany();
+export const getAllBooks = unstable_cache(
+  async () => {
+    const books = await db.query.books.findMany();
 
-  if (!books) {
-    console.log('No books found in the database');
-    return [];
-  }
+    if (!books) {
+      console.log('No books found in the database');
+      return [];
+    }
 
-  return books;
-};
+    return books;
+  },
+  ['all-books'],
+  { revalidate: 60 * 60 * 24 }
+);
 
 // get a limited number of books
-export const getLimitedBooks = async (limit: number) => {
-  const books = await db.query.books.findMany({
-    limit,
-  });
+export const getLimitedBooks = unstable_cache(
+  async (limit: number) => {
+    const books = await db.query.books.findMany({
+      limit,
+    });
 
-  if (!books) {
-    console.log('No books found in the database');
-    return [];
-  }
+    if (!books) {
+      console.log('No books found in the database');
+      return [];
+    }
 
-  return books;
-};
+    return books;
+  },
+  ['limited-books'],
+  { revalidate: 60 * 60 * 24 }
+);
 
 // get cart items for a specific user
 export const getCartItems = async (userId: number) => {
