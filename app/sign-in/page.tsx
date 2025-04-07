@@ -48,7 +48,7 @@ export default function SignInPage() {
                 });
               }}
             >
-              <Button className="w-full h-11 relative rounded-full [&_svg]:size-5 shadow-xl">
+              <Button className="w-full h-11 relative rounded-full [&_svg]:size-5 shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

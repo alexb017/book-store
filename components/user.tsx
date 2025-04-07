@@ -10,8 +10,8 @@ export async function User() {
   return (
     <div className="flex items-center">
       {!user ? (
-        <Button asChild variant="default" className="rounded-full shadow-xl">
-          <Link href="/sign-in">Sign in</Link>
+        <Button asChild variant="outline" className="rounded-full shadow-none">
+          <Link href="/sign-in">Sign In</Link>
         </Button>
       ) : (
         <form
@@ -22,8 +22,8 @@ export async function User() {
             });
           }}
         >
-          <Button variant="default" className="rounded-full shadow-xl">
-            Hi, {user.name}! Sign out
+          <Button className="rounded-full shadow-none">
+            Hi, {user.name}! Sign Out
           </Button>
         </form>
       )}

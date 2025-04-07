@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 
-export default function About() {
+export default function AboutInfo() {
   return (
     <div className="flex flex-col items-start gap-5 max-w-3xl">
       <motion.h1
-        className="text-4xl font-semibold tracking-tighter"
+        className="text-4xl font-semibold font-[family-name:var(--font-playfair-display)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -63,7 +63,11 @@ export default function About() {
             delay: 0.3,
           }}
         >
-          <Button asChild className="rounded-full shadow-lg">
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-full shadow-none"
+          >
             <Link href="/shop">Browse Books</Link>
           </Button>
         </motion.div>

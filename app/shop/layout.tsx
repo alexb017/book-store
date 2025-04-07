@@ -14,7 +14,7 @@ export default function ShopLayout({
   return (
     <main>
       <Nav />
-      <div className="px-5 mt-24">{children}</div>
+      <div className="px-8 mt-24">{children}</div>
     </main>
   );
 }

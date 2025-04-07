@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Nav from '@/components/nav';
-import Contact from './contact';
+import ContactInfo from './info';
 
 export const metadata: Metadata = {
   title: 'Contact | Book Store',
@@ -11,8 +11,8 @@ export default function ContactPage() {
   return (
     <main>
       <Nav />
-      <div className="mx-5 my-24">
-        <Contact />
+      <div className="mx-8 my-24">
+        <ContactInfo />
       </div>
     </main>
   );

@@ -6,11 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { motion } from 'motion/react';
 
-export default function Contact() {
+export default function ContactInfo() {
   return (
     <div className="flex flex-col items-start gap-5 max-w-3xl">
       <motion.h1
-        className="text-4xl font-semibold tracking-tighter"
+        className="text-4xl font-semibold font-[family-name:var(--font-playfair-display)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -55,7 +55,7 @@ export default function Contact() {
               type="text"
               id="name"
               placeholder="Enter your name"
-              className="h-11 bg-neutral-100"
+              className="h-11 rounded-xl"
             />
           </motion.div>
           <motion.div
@@ -74,7 +74,7 @@ export default function Contact() {
               type="text"
               id="email"
               placeholder="Enter your email"
-              className="h-11 bg-neutral-100"
+              className="h-11 rounded-xl"
             />
           </motion.div>
           <motion.div
@@ -92,7 +92,7 @@ export default function Contact() {
             <Textarea
               id="message"
               placeholder="Enter your message"
-              className="h-24 bg-neutral-100"
+              className="h-24 rounded-xl"
             />
           </motion.div>
           <motion.div
@@ -108,7 +108,8 @@ export default function Contact() {
           >
             <Button
               type="submit"
-              className="w-full h-11 shadow-lg rounded-full"
+              variant="outline"
+              className="w-full h-11 shadow-none rounded-xl"
             >
               Send Message
             </Button>

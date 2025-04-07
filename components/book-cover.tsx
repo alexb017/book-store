@@ -32,18 +32,21 @@ export default function BookCover({ book, page, onClick }: BookCover) {
       <motion.div
         layoutId={`${page}-book-content-${book.isbn}`}
         onClick={onClick}
+        className="bg-white rounded-2xl cursor-pointer"
+        whileHover={{
+          scale: 1.05,
+          transition: { duration: 0.3 },
+        }}
       >
         <motion.div
           layoutId={`${page}-book-cover-${book.isbn}`}
-          className="flex items-center justify-center"
+          className="aspect-[310/500] rounded-xl overflow-hidden shadow-lg"
         >
           <motion.img
             layoutId={`${page}-book-cover-image-${book.isbn}`}
             src={book.imageUrl}
             alt={book.title}
-            width={310}
-            height={500}
-            className="rounded-xl"
+            className="w-full h-full object-cover"
           />
         </motion.div>
       </motion.div>

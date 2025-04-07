@@ -24,10 +24,12 @@ export default function BooksList({
       })}
     >
       <motion.div
-        className={cn(`grid gap-10 my-8`, {
-          'grid-cols-8 3xl:grid-cols-10': page === 'shop',
-          'grid-cols-6 px-5': page === 'home',
-        })}
+        className={cn(
+          `grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 my-8`,
+          {
+            'xl:grid-cols-8 3xl:grid-cols-10': page === 'shop',
+          }
+        )}
         initial="initial"
         animate={page}
         layout
