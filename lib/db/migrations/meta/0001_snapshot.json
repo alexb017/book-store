@@ -1,6 +1,6 @@
 {
-  "id": "494486e0-c9c1-4d77-a238-dc615408e3cd",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ac2b2baa-c3ba-4fe9-bfdb-66f4f4c69d9d",
+  "prevId": "494486e0-c9c1-4d77-a238-dc615408e3cd",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -8,8 +8,8 @@
       "name": "account",
       "schema": "",
       "columns": {
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -20,8 +20,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "provider_account_id": {
-          "name": "provider_account_id",
+        "providerAccountId": {
+          "name": "providerAccountId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -77,12 +77,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "account_user_id_user_id_fk": {
-          "name": "account_user_id_user_id_fk",
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -170,14 +170,14 @@
           "primaryKey": true,
           "notNull": true
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "book_id": {
-          "name": "book_id",
+        "bookId": {
+          "name": "bookId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -205,12 +205,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "cart_items_user_id_user_id_fk": {
-          "name": "cart_items_user_id_user_id_fk",
+        "cart_items_userId_user_id_fk": {
+          "name": "cart_items_userId_user_id_fk",
           "tableFrom": "cart_items",
           "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -218,12 +218,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "cart_items_book_id_books_id_fk": {
-          "name": "cart_items_book_id_books_id_fk",
+        "cart_items_bookId_books_id_fk": {
+          "name": "cart_items_bookId_books_id_fk",
           "tableFrom": "cart_items",
           "tableTo": "books",
           "columnsFrom": [
-            "book_id"
+            "bookId"
           ],
           "columnsTo": [
             "id"
@@ -242,14 +242,14 @@
       "name": "session",
       "schema": "",
       "columns": {
-        "session_token": {
-          "name": "session_token",
+        "sessionToken": {
+          "name": "sessionToken",
           "type": "text",
           "primaryKey": true,
           "notNull": true
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -263,12 +263,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "session_user_id_user_id_fk": {
-          "name": "session_user_id_user_id_fk",
+        "session_userId_user_id_fk": {
+          "name": "session_userId_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -311,8 +311,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "email_verified": {
-          "name": "email_verified",
+        "emailVerified": {
+          "name": "emailVerified",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false

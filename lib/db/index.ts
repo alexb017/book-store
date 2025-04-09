@@ -1,13 +1,13 @@
 import { drizzle } from 'drizzle-orm/neon-http';
 import { neon } from '@neondatabase/serverless';
 import * as schema from './schema';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import { eq } from 'drizzle-orm';
 import { users } from './schema';
 import { unstable_cache } from 'next/cache';
 
 // Load environment variables from .env.local file
-dotenv.config({ path: '.env.local' });
+// dotenv.config({ path: '.env.local' });
 
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is not defined in .env file');
@@ -54,7 +54,7 @@ export const getLimitedBooks = unstable_cache(
 );
 
 // get cart items for a specific user
-export const getCartItems = async (userId: number) => {
+export const getCartItems = async (userId: string) => {
   const cartItems = await db.query.users.findFirst({
     where: eq(users.id, userId),
     with: {
