@@ -1,12 +1,15 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
-import { auth, signOut } from '@/auth';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
-export async function User() {
-  const session = await auth();
-  const user = session?.user;
-  // console.log(user);
+export function User() {
+  const { data: session } = useSession();
+  const user = session?.user || null;
+  // console.log('User:', user);
 
   return (
     <div className="flex items-center">
@@ -26,18 +29,13 @@ export async function User() {
             </p>
           </Link>
 
-          <form
-            action={async () => {
-              'use server';
-              await signOut({
-                redirectTo: '/',
-              });
-            }}
+          <Button
+            variant="outline"
+            className="rounded-full shadow-none"
+            onClick={() => signOut()}
           >
-            <Button variant="outline" className="rounded-full shadow-none">
-              Sign Out
-            </Button>
-          </form>
+            Sign Out
+          </Button>
         </div>
       )}
     </div>
