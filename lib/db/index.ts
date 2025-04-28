@@ -73,3 +73,21 @@ export const getCartItems = async (userId: string) => {
 
   return cartItems?.cartItems || [];
 };
+
+// get book by isbn
+export const getBookByIsbn = unstable_cache(
+  async (isbn: string) => {
+    const book = await db.query.books.findFirst({
+      where: eq(schema.books.isbn, isbn),
+    });
+
+    if (!book) {
+      console.log('No book found with ISBN:', isbn);
+      return null;
+    }
+
+    return book;
+  },
+  ['book-by-isbn'],
+  { revalidate: 60 * 60 * 24 }
+);

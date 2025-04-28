@@ -12,7 +12,10 @@ export default function Nav() {
         </div>
         {/* Logo */}
         <div className="flex items-center justify-center w-[20%]">
-          <Link href="/" className="text-lg font-medium tracking-tighter">
+          <Link
+            href="/"
+            className="text-lg font-medium tracking-tighter leading-none"
+          >
             Book Store
           </Link>
         </div>

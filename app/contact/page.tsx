@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main>
+    <div>
       <Nav />
       <div className="mx-8 my-24">
         <ContactInfo />
       </div>
-    </main>
+    </div>
   );
 }

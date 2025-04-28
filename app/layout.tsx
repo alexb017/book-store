@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
-import { auth } from '@/auth';
+import { getCartItems } from '@/lib/db/actions';
+import { CartProvider } from '@/components/cart/cart-context';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,13 +30,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
+  // Fetch cart items on the server side
+  const cartPromise = getCartItems().then((result) => {
+    if (typeof result === 'function') {
+      return result();
+    }
+    return result || [];
+  });
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.className} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider>
+          <CartProvider cartPromise={cartPromise}>{children}</CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );

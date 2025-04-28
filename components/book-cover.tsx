@@ -1,55 +1,38 @@
 'use client';
 
 import { motion } from 'motion/react';
-import type { BookCover } from '@/lib/types';
+import Image from 'next/image';
+import type { Book } from '@/lib/types';
+import Link from 'next/link';
 
-export default function BookCover({ book, page, onClick }: BookCover) {
-  // Variants for the animation
-  const variants = {
-    initial: {
-      opacity: 0,
-      y: page === 'home' ? 20 : 0,
-    },
-    shop: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        opacity: { duration: 0.5 },
-      },
-    },
-    home: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        opacity: { duration: 0.5 },
-        y: { duration: 0.5 },
-      },
-    },
-  };
-
+export default function BookCover({
+  book,
+  index,
+}: {
+  book: Book;
+  index: number;
+}) {
   return (
-    <motion.div variants={variants}>
+    <Link href={`/book/${book.isbn}`}>
       <motion.div
-        layoutId={`${page}-book-content-${book.isbn}`}
-        onClick={onClick}
-        className="bg-white rounded-2xl cursor-pointer"
-        whileHover={{
-          scale: 1.05,
-          transition: { duration: 0.3 },
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index, ease: 'easeOut' }}
       >
         <motion.div
-          layoutId={`${page}-book-cover-${book.isbn}`}
           className="aspect-[310/500] rounded-xl overflow-hidden shadow-lg"
+          whileHover={{ scale: 1.03 }}
         >
-          <motion.img
-            layoutId={`${page}-book-cover-image-${book.isbn}`}
+          <Image
             src={book.imageUrl}
             alt={book.title}
             className="w-full h-full object-cover"
+            width={310}
+            height={500}
+            priority={true}
           />
         </motion.div>
       </motion.div>
-    </motion.div>
+    </Link>
   );
 }

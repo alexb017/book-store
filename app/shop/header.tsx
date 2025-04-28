@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 
 export default function HeaderShop() {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start gap-1">
       <motion.h1
         className="text-4xl font-semibold font-[family-name:var(--font-playfair-display)]"
         initial={{ opacity: 0, y: 20 }}
@@ -19,7 +19,7 @@ export default function HeaderShop() {
         Shop for books
       </motion.h1>
       <motion.p
-        className="text-sm text-neutral-500"
+        className="text-neutral-500"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
