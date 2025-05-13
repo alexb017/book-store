@@ -6,7 +6,7 @@ export default function HeaderShop() {
   return (
     <div className="flex flex-col items-start gap-1">
       <motion.h1
-        className="text-4xl font-semibold font-[family-name:var(--font-playfair-display)]"
+        className="text-5xl font-[family-name:var(--font-roboto-slab)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{

@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { addBookToCart } from '@/lib/db/actions';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { formatPrice } from '@/lib/utils';
 
 export default function BookDetails({ book }: { book: Book }) {
   const { data: session } = useSession();
@@ -14,22 +16,41 @@ export default function BookDetails({ book }: { book: Book }) {
   if (!book) return null;
 
   return (
-    <div className="flex items-start gap-10">
+    <motion.div
+      className="flex items-start gap-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.3,
+        ease: 'easeIn',
+      }}
+    >
       <div className="w-1/3">
-        <motion.div className="aspect-[210/338] 3xl:aspect-[310/500] rounded-xl overflow-hidden shadow-lg">
-          <motion.img
+        <div className="aspect-[210/338] 3xl:aspect-[310/500] rounded-xl overflow-hidden shadow-lg">
+          <Image
             src={book.imageUrl}
             alt={book.title}
             className="w-full h-full object-cover"
+            width={310}
+            height={500}
           />
-        </motion.div>
+        </div>
       </div>
       <div className="flex flex-col items-start gap-5 w-2/3">
         <div className="flex flex-col items-start gap-1">
-          <h1 className="text-3xl font-semibold font-[family-name:var(--font-playfair-display)]">
+          <h1 className="text-5xl font-[family-name:var(--font-roboto-slab)]">
             {book.title}
           </h1>
-          <p className="text-neutral-500">{book.author}</p>
+          <p className="text-lg">{book.author}</p>
+          <p className="text-sm">
+            <span className="text-neutral-500">Genre</span> {book.genre}
+          </p>
+        </div>
+        <div className="flex flex-col items-start">
+          <p className="text-sm">Price</p>
+          <h2 className="text-3xl leading-none font-[family-name:var(--font-roboto-slab)]">
+            {formatPrice(book.price)}
+          </h2>
         </div>
         {!user ? (
           <Button
@@ -47,11 +68,11 @@ export default function BookDetails({ book }: { book: Book }) {
               addBookToCart(book.id);
             }}
           >
-            <span className="text-base font-semibold">${book.price}</span> Buy
-            Now
+            Buy Now
           </Button>
         )}
+        <small>ISBN {book.isbn}</small>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -6,7 +6,7 @@ import { motion } from 'motion/react';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center gap-5 max-w-[710px] w-full">
+    <div className="flex flex-col items-center gap-5 max-w-3xl w-full">
       <motion.p
         className="text-sm text-neutral-500"
         initial={{ opacity: 0, y: 20 }}
@@ -21,7 +21,7 @@ export default function Home() {
         Welcome to Book Store!
       </motion.p>
       <motion.h1
-        className="text-5xl 2xl:text-6xl text-center font-semibold font-[family-name:var(--font-playfair-display)]"
+        className="text-5xl 2xl:text-6xl text-center font-[family-name:var(--font-roboto-slab)]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{

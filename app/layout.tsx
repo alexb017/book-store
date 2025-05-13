@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google';
+import { Geist, Geist_Mono, Roboto_Slab } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
 import { getCartItems } from '@/lib/db/actions';
@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair-display',
+const robotoSlab = Roboto_Slab({
+  variable: '--font-roboto-slab',
   subsets: ['latin'],
 });
 
@@ -41,7 +41,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} ${geistMono.variable} ${playfair.variable} antialiased`}
+        className={`${geistSans.className} ${geistMono.variable} ${robotoSlab.variable} antialiased`}
       >
         <SessionProvider>
           <CartProvider cartPromise={cartPromise}>{children}</CartProvider>
