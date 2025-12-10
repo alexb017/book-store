@@ -20,7 +20,7 @@ export default function BookCover({
         transition={{ duration: 0.3, delay: index, ease: 'easeOut' }}
       >
         <motion.div
-          className="aspect-[310/500] rounded-xl overflow-hidden shadow-lg"
+          className="aspect-310/500 rounded-xl overflow-hidden shadow-lg"
           whileHover={{ scale: 1.03 }}
         >
           <Image

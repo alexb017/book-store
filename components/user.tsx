@@ -23,7 +23,7 @@ export function User() {
           <CartModal />
           <div className="flex items-center gap-5">
             <Link href="/" className="flex items-center gap-3">
-              <Avatar className="h-8 w-8 outline outline-offset-1 outline-orange-300">
+              <Avatar className="h-8 w-8 outline-solid outline-offset-1 outline-orange-300">
                 <AvatarImage src={user.image || ''} />
                 <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
               </Avatar>

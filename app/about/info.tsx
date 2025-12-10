@@ -8,7 +8,7 @@ export default function AboutInfo() {
   return (
     <div className="flex flex-col items-start gap-5 max-w-3xl">
       <motion.h1
-        className="text-5xl font-[family-name:var(--font-roboto-slab)]"
+        className="text-5xl font-(family-name:--font-roboto-slab)"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
