@@ -26,7 +26,7 @@ export default function BookDetails({ book }: { book: Book }) {
       }}
     >
       <div className="w-1/3">
-        <div className="aspect-[210/338] 3xl:aspect-[310/500] rounded-xl overflow-hidden shadow-lg">
+        <div className="aspect-210/338 3xl:aspect-310/500 rounded-xl overflow-hidden shadow-lg">
           <Image
             src={book.imageUrl}
             alt={book.title}
@@ -38,7 +38,7 @@ export default function BookDetails({ book }: { book: Book }) {
       </div>
       <div className="flex flex-col items-start gap-5 w-2/3">
         <div className="flex flex-col items-start gap-1">
-          <h1 className="text-5xl font-[family-name:var(--font-roboto-slab)]">
+          <h1 className="text-5xl font-(family-name:--font-roboto-slab)">
             {book.title}
           </h1>
           <p className="text-lg">{book.author}</p>
@@ -48,7 +48,7 @@ export default function BookDetails({ book }: { book: Book }) {
         </div>
         <div className="flex flex-col items-start">
           <p className="text-sm">Price</p>
-          <h2 className="text-3xl leading-none font-[family-name:var(--font-roboto-slab)]">
+          <h2 className="text-3xl leading-none font-(family-name:--font-roboto-slab)">
             {formatPrice(book.price)}
           </h2>
         </div>
