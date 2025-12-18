@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import type { Book } from '@/lib/types';
-import { motion } from 'motion/react';
-import { Button } from '@/components/ui/button';
-import { addBookToCart } from '@/lib/db/actions';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { formatPrice } from '@/lib/utils';
+import type { Book } from "@/lib/types";
+import { motion } from "motion/react";
+import { Button } from "@/components/ui/button";
+import { addBookToCart } from "@/lib/db/actions";
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import Image from "next/image";
+import { formatPrice } from "@/lib/utils";
 
 export default function BookDetails({ book }: { book: Book }) {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const user = session?.user || null;
 
   if (!book) return null;
@@ -22,7 +22,7 @@ export default function BookDetails({ book }: { book: Book }) {
       animate={{ opacity: 1 }}
       transition={{
         duration: 0.3,
-        ease: 'easeIn',
+        ease: "easeIn",
       }}
     >
       <div className="w-1/3">

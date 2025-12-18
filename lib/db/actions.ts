@@ -1,15 +1,16 @@
-'use server';
+"use server";
 
-import { db } from '@/lib/db';
-import { eq } from 'drizzle-orm';
-import { users, cartItems } from './schema';
-import { auth } from '@/auth';
-import { unstable_cache, revalidateTag } from 'next/cache';
+import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
+import { users, cartItems } from "./schema";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { unstable_cache, revalidateTag } from "next/cache";
 
-const CART_CACHE_TAG = 'cart-items';
+const CART_CACHE_TAG = "cart-items";
 
 async function getUserId() {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   return session?.user?.id || null;
 }
 
@@ -40,7 +41,7 @@ const fetchCartItems = (userId: string) =>
       });
 
       if (!cartItems) {
-        console.log('No cart items found for user:', userId);
+        console.log("No cart items found for user:", userId);
         return [];
       }
 
@@ -54,16 +55,16 @@ const fetchCartItems = (userId: string) =>
 export async function addBookToCart(bookId: string) {
   const userId = await getUserId();
   if (!userId || !bookId) {
-    return 'User ID and Book ID are required';
+    return "User ID and Book ID are required";
   }
 
   try {
     await db.insert(cartItems).values({ userId, bookId, quantity: 1 });
 
     // Revalidate the cache for cart items
-    revalidateTag(CART_CACHE_TAG);
+    revalidateTag(CART_CACHE_TAG, "max");
   } catch (error) {
-    console.error('Error adding book to cart:', error);
-    return 'Failed to add book to cart';
+    console.error("Error adding book to cart:", error);
+    return "Failed to add book to cart";
   }
 }

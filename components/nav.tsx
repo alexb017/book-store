@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { User } from '@/components/user';
-import MenuToggle from './menu-toggle';
+import Link from "next/link";
+import User from "@/components/user";
+import MenuToggle from "./menu-toggle";
 
 export default function Nav() {
   return (
