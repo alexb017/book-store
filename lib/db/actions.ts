@@ -62,7 +62,7 @@ export async function addBookToCart(bookId: string) {
     await db.insert(cartItems).values({ userId, bookId, quantity: 1 });
 
     // Revalidate the cache for cart items
-    revalidateTag(CART_CACHE_TAG);
+    revalidateTag(CART_CACHE_TAG, "max");
   } catch (error) {
     console.error("Error adding book to cart:", error);
     return "Failed to add book to cart";
