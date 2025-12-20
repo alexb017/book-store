@@ -2,130 +2,156 @@ import {
   text,
   timestamp,
   integer,
+  boolean,
   pgTable,
   varchar,
-  primaryKey,
-} from 'drizzle-orm/pg-core';
-import { relations } from 'drizzle-orm';
-import type { AdapterAccountType } from 'next-auth/adapters';
+  index,
+} from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
-// Stores information about registered users
-export const users = pgTable('user', {
-  id: text('id')
+export const user = pgTable("user", {
+  id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text('name'),
-  email: text('email').notNull().unique(),
-  image: text('image'),
-  emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: boolean("email_verified").default(false).notNull(),
+  image: text("image"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
 });
 
-// Stores information about user accounts
-export const accounts = pgTable(
-  'account',
+export const account = pgTable(
+  "account",
   {
-    userId: text('userId')
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    accountId: text("account_id").notNull(),
+    providerId: text("provider_id").notNull(),
+    userId: text("user_id")
       .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    provider: text('provider').notNull(),
-    providerAccountId: text('providerAccountId').notNull(),
-    type: text('type').$type<AdapterAccountType>().notNull(),
-    accessToken: text('access_token'),
-    refreshToken: text('refresh_token'),
-    expiresAt: integer('expires_at'),
-    tokenType: text('token_type'),
-    scope: text('scope'),
-    idToken: text('id_token'),
-    sessionState: text('session_state'),
+      .references(() => user.id, { onDelete: "cascade" }),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    idToken: text("id_token"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at"),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    scope: text("scope"),
+    password: text("password"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
-  (account) => [
-    {
-      compoundKey: primaryKey({
-        columns: [account.provider, account.providerAccountId],
-      }),
-    },
-  ]
+  (table) => [index("account_userId_idx").on(table.userId)]
 );
 
-// This table stores the session information for users
-// Is optional and can be used for db sessions strategy
-// It is not used in this example
-export const sessions = pgTable('session', {
-  sessionToken: text('sessionToken').primaryKey(),
-  userId: text('userId')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  expires: timestamp('expires', { mode: 'date' }).notNull(),
-});
-
-// This table stores the verification tokens for users
-// Is optional and can be used for magic link
-// It is not used in this example
-export const verificationTokens = pgTable(
-  'verificationToken',
+export const session = pgTable(
+  "session",
   {
-    identifier: text('identifier').notNull(),
-    token: text('token').notNull(),
-    expires: timestamp('expires', { mode: 'date' }).notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    expiresAt: timestamp("expires_at").notNull(),
+    token: text("token").notNull().unique(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
   },
-  (verificationToken) => [
-    {
-      compositePk: primaryKey({
-        columns: [verificationToken.identifier, verificationToken.token],
-      }),
-    },
-  ]
+  (table) => [index("session_userId_idx").on(table.userId)]
 );
 
-// Stores information about the books available in the store
-export const books = pgTable('books', {
-  id: text('id')
+export const verification = pgTable(
+  "verification",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    identifier: text("identifier").notNull(),
+    value: text("value").notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [index("verification_identifier_idx").on(table.identifier)]
+);
+
+export const book = pgTable("book", {
+  id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  isbn: varchar('isbn').notNull().unique(),
-  title: text('title').notNull(),
-  author: text('author').notNull(),
-  imageUrl: text('image_url').notNull(),
-  price: integer('price').notNull(),
-  genre: text('genre').notNull(),
+  isbn: varchar("isbn").notNull().unique(),
+  title: text("title").notNull(),
+  author: text("author").notNull(),
+  imageUrl: text("image_url").notNull(),
+  price: integer("price").notNull(),
+  genre: text("genre").notNull(),
 });
 
-// This is a"join table" that connects users with their cart items
-export const cartItems = pgTable('cart_items', {
-  id: text('id')
+export const cart = pgTable("cart", {
+  id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  userId: text('userId')
+  userId: text("user_id")
     .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  bookId: text('bookId')
+    .references(() => user.id, { onDelete: "cascade" }),
+  bookId: text("book_id")
     .notNull()
-    .references(() => books.id, { onDelete: 'cascade' }),
-  quantity: integer('quantity').notNull(),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+    .references(() => book.id, { onDelete: "cascade" }),
+  quantity: integer("quantity").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// A user can have many items in their cart
-export const userRelations = relations(users, ({ many }) => ({
-  cartItems: many(cartItems),
-  accounts: many(accounts),
-  sessions: many(sessions),
+// Each user can have many cart items
+export const userRelations = relations(user, ({ many }) => ({
+  cart: many(cart),
+  accounts: many(account),
+  sessions: many(session),
 }));
 
-// A book can appear in many different users' carts
-export const bookRelations = relations(books, ({ many }) => ({
-  cartItems: many(cartItems),
-}));
-
-// Each cart item belongs to a single user and a single book
-export const cartItemRelations = relations(cartItems, ({ one }) => ({
-  user: one(users, {
-    fields: [cartItems.userId],
-    references: [users.id],
+// Each session belongs to one user
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, {
+    fields: [session.userId],
+    references: [user.id],
   }),
-  book: one(books, {
-    fields: [cartItems.bookId],
-    references: [books.id],
+}));
+
+// Each account belongs to one user
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
+}));
+
+// Each book can be in many cart item
+export const bookRelations = relations(book, ({ many }) => ({
+  cart: many(cart),
+}));
+
+// Each cart item relates to one user and one book
+export const cartRelations = relations(cart, ({ one }) => ({
+  user: one(user, {
+    fields: [cart.userId],
+    references: [user.id],
+  }),
+  book: one(book, {
+    fields: [cart.bookId],
+    references: [book.id],
   }),
 }));

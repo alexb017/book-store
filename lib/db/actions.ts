@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
-import { users, cartItems } from "./schema";
+import { user, cart } from "./schema";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { unstable_cache, revalidateTag } from "next/cache";
@@ -14,7 +14,7 @@ async function getUserId() {
   return session?.user?.id || null;
 }
 
-// Get cart items for a specific user
+// Get cart for a specific user
 export async function getCartItems() {
   const userId = await getUserId();
 
@@ -25,14 +25,14 @@ export async function getCartItems() {
   return fetchCartItems(userId);
 }
 
-// Fetch and cache cart items for a specific user
+// Fetch and cache cart for a specific user
 const fetchCartItems = (userId: string) =>
   unstable_cache(
     async () => {
-      const cartItems = await db.query.users.findFirst({
-        where: eq(users.id, userId),
+      const cartItems = await db.query.user.findFirst({
+        where: eq(user.id, userId),
         with: {
-          cartItems: {
+          cart: {
             with: {
               book: true,
             },
@@ -45,7 +45,7 @@ const fetchCartItems = (userId: string) =>
         return [];
       }
 
-      return cartItems?.cartItems || [];
+      return cartItems?.cart || [];
     },
     [`cart-items-${userId}`],
     { tags: [CART_CACHE_TAG] }
@@ -59,9 +59,9 @@ export async function addBookToCart(bookId: string) {
   }
 
   try {
-    await db.insert(cartItems).values({ userId, bookId, quantity: 1 });
+    await db.insert(cart).values({ userId, bookId, quantity: 1 });
 
-    // Revalidate the cache for cart items
+    // Revalidate the cache for cart
     revalidateTag(CART_CACHE_TAG, "max");
   } catch (error) {
     console.error("Error adding book to cart:", error);
